@@ -1,3 +1,5 @@
+from datetime import datetime
+from enum import Enum
 from typing import List
 
 from fastapi import FastAPI
@@ -11,14 +13,28 @@ app = FastAPI(
 fake_users = [
     {"id": 1, "role": "admin", "name": "Nick"},
     {"id": 2, "role": "moderator", "name": "Anna"},
-    {"id": 3, "role": "user", "name": "John"}
+    {"id": 3, "role": "user", "name": "John", "degree": [
+        {"id": 1, "created_at": "2020-01-01T00:00:00.0000", "type_degree": "expert"}
+    ]}
 ]
+
+
+class DegreeType(Enum):
+    newbie = "newbie"
+    expert = "expert"
+
+
+class Degree(BaseModel):
+    id: int
+    created_at: datetime
+    type_degree: DegreeType
 
 
 class User(BaseModel):
     id: int
     role: str
     name: str
+    degree: List[Degree]
 
 
 @app.get("/users/{user_id}", response_model=List[User])
