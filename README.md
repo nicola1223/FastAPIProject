@@ -1,0 +1,2 @@
+# FastAPIProject
+My FastAPI project
