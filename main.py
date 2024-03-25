@@ -9,7 +9,6 @@ app = FastAPI(
     title="App"
 )
 
-
 fake_users = [
     {"id": 1, "role": "admin", "name": "Nick"},
     {"id": 2, "role": "moderator", "name": "Anna"},
@@ -61,3 +60,8 @@ class Trade(BaseModel):
 def get_trades(trades: List[Trade]):
     fake_trades.extend(trades)
     return {"status": 200, "data": fake_trades}
+
+
+@app.get("/trades/user/{user_id}")
+def get_trades_by_user(user_id: int):
+    return [trade for trade in fake_trades if trade.get("user_id") == user_id]
