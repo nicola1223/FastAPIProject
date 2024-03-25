@@ -58,6 +58,7 @@ class Trade(BaseModel):
 
 @app.post("/trades")
 def get_trades(trades: List[Trade]):
+    # noinspection PyTypeChecker
     fake_trades.extend(trades)
     return {"status": 200, "data": fake_trades}
 
